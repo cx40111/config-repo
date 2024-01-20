@@ -1,0 +1,27 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: orderservice
+  datasource:
+    url: jdbc:postgresql://192.168.10.21:5432/cloud_db?currentSchema=cloud_order
+    username: postgres
+    password: 1
+    driver-class-name: org.postgresql.Driver
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8880/eureka/
+
+#feign自定义配置，配置日志级别
+feign:
+  client:
+    config:
+      default:  #这里用default就是全局配置，如果是写服务器名称，则是针对在某个微服务的配置
+        loggerLevel: basic  #日志级别
+  httpclient:
+    enabled: true   #开启feign对HttpClient的支持
+    max-connections: 200   #最大连接数量
+    max-connections-per-route: 50   #每个路径的最大连接数量
+  hystrix:
+    enabled: true
